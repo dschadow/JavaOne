@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+
+	<bean id="groups" class="de.bit.camel.security.beans.GroupsBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="users" class="de.bit.camel.security.beans.UsersBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<jdbc:embedded-database id="dataSource">
+		<jdbc:script location="classpath:schema.sql" />
+		<jdbc:script location="classpath:data.sql" />
+	</jdbc:embedded-database>
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<route id="groupService">
+			<from uri="seda:users" />
+			<log message="groupService started with body ${body}" />
+			
+			<bean ref="groups" method="getGroupId" />
+			<log message="calling userService with body ${body}" />
+			<to uri="seda:groups" />
+			
+			<log message="groupService finished with body ${body}" />
+		</route>
+
+		<route id="userService">
+			<from uri="seda:groups" />
+			
+			<log message="userService started with body ${body}" />
+			<bean ref="users" method="getUsersInGroup" />
+			
+			<log message="userService finished with body ${body}" />
+		</route>
+	</camelContext>
+</beans>

@@ -1,0 +1,2 @@
+CREATE TABLE GROUPS (group_id INTEGER, group_name VARCHAR(30));
+CREATE TABLE USERS (user_id INTEGER, group_id INTEGER, user_name VARCHAR(30));
