@@ -1,9 +1,7 @@
-INSERT INTO GROUPS VALUES (10001, 'users');
-INSERT INTO GROUPS VALUES (20001, 'editors');
-INSERT INTO GROUPS VALUES (30001, 'admins');
+INSERT INTO employees VALUES (10001, 'Alice', 'Manager', '', '01.01.2008');
+INSERT INTO employees VALUES (10002, 'Bob', 'Administrator', 'IT' '01.06.2005');
+INSERT INTO employees VALUES (10003, 'Paul', 'Assistant', 'HR' '01.06.2012');
 
-INSERT INTO USERS VALUES (1, 10001, 'Special User');
-INSERT INTO USERS VALUES (2, 10001, 'Super Special User');
-INSERT INTO USERS VALUES (3, 20001, 'Special Editor');
-INSERT INTO USERS VALUES (4, 20001, 'Normal Editor');
-INSERT INTO USERS VALUES (5, 30001, 'Secret Admin');
+INSERT INTO accounting VALUES (1, 10001, 10000);
+INSERT INTO accounting VALUES (2, 10002, 5000);
+INSERT INTO accounting VALUES (3, 10003, 3700);
