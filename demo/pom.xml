@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<camel.version>2.9.2</camel.version>
+		<camel.version>2.10.0</camel.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 	</properties>
 
@@ -38,7 +38,7 @@
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test</artifactId>
+			<artifactId>camel-test-spring</artifactId>
 			<version>${camel.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -112,5 +112,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<description>This project contains the initial demo project in the 'master' branch, the payload security demo in the 'payload' branch, the route security demo in the 'route' branch and the complete secured project (payload and route) in the 'payload_route' branch.</description>
+	<description>This project contains the initial demo project in the *master* branch. The payload security demo is located in the *payload* branch. Route security is split into two branches: Spring Security route security is located in the *route-spring-security* branch, Apache Shiro route security is located in the *route-apache-shiro* branch.</description>
 </project>
