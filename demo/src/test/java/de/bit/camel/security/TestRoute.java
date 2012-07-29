@@ -11,7 +11,7 @@ public class TestRoute extends CamelSpringTestSupport {
     @Test
     @SuppressWarnings("unchecked")
     public void testUsersRoute() throws Exception {
-        List<User> users = template.requestBody("seda:users", "users", List.class);
+        List<Employee> users = template.requestBody("seda:users", "users", List.class);
 
         assertNotNull(users);
         assertTrue(users.size() == 2);

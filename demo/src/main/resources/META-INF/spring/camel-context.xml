@@ -7,38 +7,73 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 
-	<bean id="groups" class="de.bit.camel.security.beans.GroupsBean">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+	<bean id="employees" class="de.bit.camel.security.beans.EmployeeBean" />
+	
+	<bean id="accounting" class="de.bit.camel.security.beans.AccountingBean" />
 
-	<bean id="users" class="de.bit.camel.security.beans.UsersBean">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<!-- call this web service with an employee ID value 10001, 10002 or 10003 -->
+		<route id="empInfoEndpoint">
+			<from uri="cxf:bean:empInfoEndpoint" />
+			<log message="empInfoEndpoint started with body ${body}" />
+			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
+			
+			<!-- body always consists of an Integer employee ID only -->
+			<convertBodyTo type="java.lang.Integer" />
+			
+			<choice>
+				<when>
+					<simple>${in.header.operationName} == 'getEmployeeInformation'</simple>
+					<to uri="direct:hr" />
+				</when>
+				<otherwise>
+					<log message="Unknown operation name ${in.header.operationName}" loggingLevel="ERROR"/>
+				</otherwise>
+			</choice>
+			
+			<log message="empInfoEndpoint finished with body ${body}" />
+		</route>	
+		
+		<route id="hr">
+			<from uri="direct:hr" />
+			<log message="hr started with body ${body}" />
+			
+			<bean ref="employees" method="getEmployeeData" />
+			
+			<choice>
+				<when>
+	                <xpath>/employee/jobTitle = 'Manager'</xpath>
+					<to uri="direct:sac" />
+				</when>
+				<otherwise>
+					<to uri="direct:ac" />
+				</otherwise>
+		    </choice>
+			
+			<log message="hr finished with body ${body}" />
+		</route>
+
+		<route id="ac">
+			<from uri="direct:ac" />
+			<log message="ac started with body ${body}" />
+			
+			<bean ref="accounting" method="getSalaryById" />
+			
+			<log message="ac finished with body ${body}" />
+		</route>
+
+		<route id="sac">
+			<from uri="direct:sac" />
+			<log message="sac started with body ${body}" />
+			
+			<bean ref="accounting" method="getSalary" />
+			
+			<log message="sac finished with body ${body}" />
+		</route>
+	</camelContext>
 
 	<jdbc:embedded-database id="dataSource">
 		<jdbc:script location="classpath:schema.sql" />
 		<jdbc:script location="classpath:data.sql" />
 	</jdbc:embedded-database>
-
-	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-		<route id="groupService">
-			<from uri="seda:users" />
-			<log message="groupService started with body ${body}" />
-			
-			<bean ref="groups" method="getGroupId" />
-			<log message="calling userService with body ${body}" />
-			<to uri="seda:groups" />
-			
-			<log message="groupService finished with body ${body}" />
-		</route>
-
-		<route id="userService">
-			<from uri="seda:groups" />
-			
-			<log message="userService started with body ${body}" />
-			<bean ref="users" method="getUsersInGroup" />
-			
-			<log message="userService finished with body ${body}" />
-		</route>
-	</camelContext>
 </beans>
