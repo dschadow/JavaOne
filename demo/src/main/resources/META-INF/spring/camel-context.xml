@@ -26,6 +26,16 @@
 				<when>
 					<simple>${in.header.operationName} == 'getEmployeeInformation'</simple>
 					<to uri="direct:hr" />
+			
+					<choice>
+						<when>
+			                <xpath>/employee/jobTitle = 'Manager'</xpath>
+							<to uri="direct:sac" />
+						</when>
+						<otherwise>
+							<to uri="direct:ac" />
+						</otherwise>
+				    </choice>
 				</when>
 				<otherwise>
 					<log message="Unknown operation name ${in.header.operationName}" loggingLevel="ERROR"/>
@@ -40,16 +50,6 @@
 			<log message="hr started with body ${body}" />
 			
 			<bean ref="employees" method="getEmployeeData" />
-			
-			<choice>
-				<when>
-	                <xpath>/employee/jobTitle = 'Manager'</xpath>
-					<to uri="direct:sac" />
-				</when>
-				<otherwise>
-					<to uri="direct:ac" />
-				</otherwise>
-		    </choice>
 			
 			<log message="hr finished with body ${body}" />
 		</route>
