@@ -13,7 +13,7 @@
 	<bean id="accounting" class="de.bit.camel.security.beans.AccountingBean" />
 
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-		<!-- call this web service with an employee ID value 10001, 10002 or 10003 -->
+		<!-- call this web service with an employee ID value 10001 (manager), 10002 or 10003 -->
 		<route id="empInfoEndpoint">
 			<from uri="cxf:bean:empInfoEndpoint" />
 			<log message="empInfoEndpoint started with body ${body}" />
@@ -58,7 +58,7 @@
 			<from uri="direct:ac" />
 			<log message="ac started with body ${body}" />
 			
-			<bean ref="accounting" method="getSalaryById" />
+			<bean ref="accounting" method="getSalaryForEmployee" />
 			
 			<log message="ac finished with body ${body}" />
 		</route>
@@ -67,7 +67,8 @@
 			<from uri="direct:sac" />
 			<log message="sac started with body ${body}" />
 			
-			<bean ref="accounting" method="getSalary" />
+			<bean ref="accounting" method="getSalaryForEmployee" />
+			<bean ref="accounting" method="getTotalSalaryForManager" />
 			
 			<log message="sac finished with body ${body}" />
 		</route>

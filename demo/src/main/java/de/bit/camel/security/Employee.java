@@ -7,6 +7,7 @@ public class Employee {
     private String department;
     private String entryDate;
     private int salary;
+    private int total;
 
     public int getEmpId() {
         return empId;
@@ -56,6 +57,14 @@ public class Employee {
         this.salary = salary;
     }
     
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
     @Override
     public String toString() {
         StringBuilder emp = new StringBuilder();
@@ -65,6 +74,7 @@ public class Employee {
         emp.append("department ").append(department);
         emp.append("entryDate ").append(entryDate);
         emp.append("salary ").append(salary);
+        emp.append("total").append(total);
         
         return emp.toString();
     }
