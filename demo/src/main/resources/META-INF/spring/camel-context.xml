@@ -8,68 +8,80 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 	<import resource="classpath:META-INF/spring/services.cxf.xml" />
 
-	<bean id="employees" class="de.bit.camel.security.beans.EmployeeBean" />
+	<bean id="employees" class="de.bit.camel.security.beans.EmployeeBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="accounting" class="de.bit.camel.security.beans.AccountingBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	
-	<bean id="accounting" class="de.bit.camel.security.beans.AccountingBean" />
+	<bean id="converter" class="de.bit.camel.security.util.Converter" />
 
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-		<!-- call this web service with an employee ID value 10001 (manager), 10002 or 10003 -->
+		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
 		<route id="empInfoEndpoint">
 			<from uri="cxf:bean:empInfoEndpoint" />
 			<log message="empInfoEndpoint started with body ${body}" />
-			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
-			
+			<log
+				message="empInfoEndpoint called with operation: ${in.header.operationName}" />
+
 			<!-- body always consists of an Integer employee ID only -->
 			<convertBodyTo type="java.lang.Integer" />
-			
+
 			<choice>
 				<when>
 					<simple>${in.header.operationName} == 'getEmployeeInformation'</simple>
 					<to uri="direct:hr" />
-			
+
 					<choice>
 						<when>
-			                <xpath>/employee/jobTitle = 'Manager'</xpath>
+							<simple>${in.header.jobTitle} == 'Manager'</simple>
 							<to uri="direct:sac" />
 						</when>
 						<otherwise>
 							<to uri="direct:ac" />
 						</otherwise>
-				    </choice>
+					</choice>
+					
+					<transform>
+						<method bean="converter" method="convertToXml" />
+					</transform>
 				</when>
 				<otherwise>
-					<log message="Unknown operation name ${in.header.operationName}" loggingLevel="ERROR"/>
+					<log message="Unknown operation name ${in.header.operationName}"
+						loggingLevel="ERROR" />
 				</otherwise>
 			</choice>
-			
+
 			<log message="empInfoEndpoint finished with body ${body}" />
-		</route>	
-		
+		</route>
+
 		<route id="hr">
 			<from uri="direct:hr" />
 			<log message="hr started with body ${body}" />
-			
+
 			<bean ref="employees" method="getEmployeeData" />
-			
+
 			<log message="hr finished with body ${body}" />
 		</route>
 
 		<route id="ac">
 			<from uri="direct:ac" />
 			<log message="ac started with body ${body}" />
-			
+
 			<bean ref="accounting" method="getSalaryForEmployee" />
-			
+
 			<log message="ac finished with body ${body}" />
 		</route>
 
 		<route id="sac">
 			<from uri="direct:sac" />
 			<log message="sac started with body ${body}" />
-			
+
 			<bean ref="accounting" method="getSalaryForEmployee" />
 			<bean ref="accounting" method="getTotalSalaryForManager" />
-			
+
 			<log message="sac finished with body ${body}" />
 		</route>
 	</camelContext>
