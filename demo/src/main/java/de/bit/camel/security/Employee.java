@@ -1,5 +1,8 @@
 package de.bit.camel.security;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Employee {
     private int empId;
     private String name;
@@ -68,12 +71,12 @@ public class Employee {
     @Override
     public String toString() {
         StringBuilder emp = new StringBuilder();
-        emp.append("empId ").append(empId);
-        emp.append("name ").append(name);
-        emp.append("jobTitle ").append(jobTitle);
-        emp.append("department ").append(department);
-        emp.append("entryDate ").append(entryDate);
-        emp.append("salary ").append(salary);
+        emp.append("empId ").append(empId).append(", ");
+        emp.append("name ").append(name).append(", ");
+        emp.append("jobTitle ").append(jobTitle).append(", ");
+        emp.append("department ").append(department).append(", ");
+        emp.append("entryDate ").append(entryDate).append(", ");
+        emp.append("salary ").append(salary).append(", ");
         emp.append("total").append(total);
         
         return emp.toString();

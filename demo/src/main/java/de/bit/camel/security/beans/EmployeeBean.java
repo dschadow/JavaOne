@@ -3,14 +3,19 @@ package de.bit.camel.security.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import de.bit.camel.security.Employee;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
-public class EmployeeBean extends AbstractBean {
+import de.bit.camel.security.Employee;
+
+public class EmployeeBean {
     private Logger logger = Logger.getLogger(EmployeeBean.class);
-    
+
+    private SimpleJdbcTemplate simpleJdbcTemplate;    
     private static final String QUERY_FOR_EMP = "select name, job_title, department, entry_date from employees where emp_id = ?";
 
     public Employee getEmployeeData(final int empId) {
@@ -34,5 +39,10 @@ public class EmployeeBean extends AbstractBean {
         logger.debug("getEmployeeData returned " + emp.toString());
 
         return emp;
+    }
+
+    @Required
+    public void setDataSource(DataSource dataSource) {
+        this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
     }
 }
