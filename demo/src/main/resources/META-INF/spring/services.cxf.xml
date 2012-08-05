@@ -6,8 +6,8 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 
-	<cxf:cxfEndpoint id="empInfoEndpoint" address="/emp"
-		serviceName="EmpInfoService" endpointName="EmpInfoServicePort"
+	<cxf:cxfEndpoint id="EmpInfoService" address="/emp"
 		serviceClass="de.bit.camel.security.services.EmpInfoService"
-		xmlns="http://services.bit.de/" />
+		endpointName="s:EmpInfoPort" serviceName="s:EmpInfoService"
+		xmlns:s="http://services.bit.de/" />
 </beans>
