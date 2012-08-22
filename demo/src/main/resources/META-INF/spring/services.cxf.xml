@@ -4,10 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 
-	<cxf:cxfEndpoint id="EmpInfoService" address="/emp"
-		serviceClass="de.bit.camel.security.services.EmpInfoService"
-		endpointName="s:EmpInfoPort" serviceName="s:EmpInfoService"
-		xmlns:s="http://services.bit.de/" />
+	<cxf:cxfEndpoint id="EmpInfoService" address="http://localhost:8080/demo/services/emp"
+		serviceClass="de.bit.camel.security.services.EmpInfoService" />
 </beans>

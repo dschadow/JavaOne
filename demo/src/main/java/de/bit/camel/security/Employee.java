@@ -77,7 +77,7 @@ public class Employee {
         emp.append("department ").append(department).append(", ");
         emp.append("entryDate ").append(entryDate).append(", ");
         emp.append("salary ").append(salary).append(", ");
-        emp.append("total").append(total);
+        emp.append("total ").append(total);
         
         return emp.toString();
     }

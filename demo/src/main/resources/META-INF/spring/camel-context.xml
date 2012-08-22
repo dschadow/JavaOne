@@ -10,7 +10,8 @@
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
 		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
 		<route id="empInfoService">
-			<from uri="cxf:bean:EmpInfoService" />
+			<!-- <from uri="cxf:bean:EmpInfoService" /> -->
+			<from uri="direct:EmpInfoService" />
 			<log message="empInfoEndpoint started with body ${body}" />
 			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
 
@@ -21,20 +22,28 @@
 				<when>
 					<simple>${in.header.operationName} == 'getEmployeeInformation'</simple>
 					<to uri="direct:hr" />
-
-					<choice>
-						<when>
-							<simple>${in.header.group} == 'Manager'</simple>
-							<to uri="direct:sac" />
-						</when>
-						<otherwise>
-							<to uri="direct:ac" />
-						</otherwise>
-					</choice>
 					
 					<transform>
 						<method bean="converter" method="convertToXml" />
 					</transform>
+
+					<choice>
+						<when>
+							<xpath>/employee/jobTitle = 'Manager'</xpath>
+							<transform>
+								<method bean="converter" method="convertToEmployee" />
+							</transform>
+							
+							<to uri="direct:sac" />
+						</when>
+						<otherwise>
+							<transform>
+								<method bean="converter" method="convertToEmployee" />
+							</transform>
+							
+							<to uri="direct:ac" />
+						</otherwise>
+					</choice>
 				</when>
 				<otherwise>
 					<log message="Unknown operation name ${in.header.operationName}" />

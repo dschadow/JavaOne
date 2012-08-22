@@ -8,13 +8,13 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class TestBob extends CamelSpringTestSupport {   
+public class TestAlice extends CamelSpringTestSupport {
     @Test
-    public void testBob() throws Exception {
+    public void testAlice() throws Exception {
         Processor processor = new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(10002);
+                exchange.getIn().setBody(10001);
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
@@ -24,7 +24,7 @@ public class TestBob extends CamelSpringTestSupport {
 
         assertNotNull("result may not be null", resultExchange);
         
-        assertEquals(TestResults.COMPLETE_RESULT_BOB, resultExchange.getIn().getBody().toString());
+        assertEquals(TestResults.COMPLETE_RESULT_ALICE, resultExchange.getIn().getBody().toString());
     }
 
     @Override

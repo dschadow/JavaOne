@@ -33,6 +33,11 @@
 			<artifactId>camel-cxf</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf-transport</artifactId>
+			<version>${camel.version}</version>
+        </dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -46,13 +51,6 @@
 			<artifactId>camel-test-spring</artifactId>
 			<version>${camel.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- prevents nasty NullPointerException during bean initialization -->
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.2.3</version>
 		</dependency>
 		
 		<dependency>
