@@ -24,7 +24,7 @@
 					
 					<choice>
 						<when>
-							<simple>${in.header.jobTitle} == 'Manager'</simple>
+							<method bean="employees" method="isManager" />
 							<to uri="direct:sac" />
 						</when>
 						<otherwise>

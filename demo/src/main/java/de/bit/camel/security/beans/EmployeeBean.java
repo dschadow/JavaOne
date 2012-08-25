@@ -45,6 +45,10 @@ public class EmployeeBean {
             throw new RuntimeException(ex);
         }
     }
+    
+    public boolean isManager(Employee employee) {
+        return employee.getJobTitle().equals("Manager");
+    }
 
     @Required
     public void setDataSource(DataSource dataSource) {

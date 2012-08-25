@@ -5,7 +5,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.test.junit4.CamelSpringTestSupport;
-import org.apache.cxf.binding.soap.SoapFault;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,18 +17,21 @@ public class TestEve extends CamelSpringTestSupport {
         Processor processor = new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(12345);
+                exchange.getIn().setBody(10001);
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
         };
-    
+
         Exchange resultExchange = template.request("cxf:bean:EmpInfoService", processor);
-    
+
         assertNotNull("result may not be null", resultExchange);
-        assertNotNull("exception may not be null", resultExchange.getException());
+        assertNotNull("result/getOut may not be null", resultExchange.getOut());
+        assertNotNull("result/getOut/getBody may not be null", resultExchange.getOut().getBody(Employee.class));
+
+        Employee employee = resultExchange.getOut().getBody(Employee.class);
         
-        assertTrue(resultExchange.getException().getClass().equals(SoapFault.class));
+        assertEquals(TestResults.COMPLETE_RESULT_ALICE, employee.toString());
     }
 
     @Override
