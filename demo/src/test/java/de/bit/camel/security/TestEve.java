@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.w3c.dom.Document;
 
 public class TestEve extends CamelSpringTestSupport {
     @Test
@@ -42,8 +43,12 @@ public class TestEve extends CamelSpringTestSupport {
         Exchange resultExchange = template.request("direct:EmpInfoService", processor);
 
         assertNotNull("result may not be null", resultExchange);
-
-        assertEquals(TestResults.COMPLETE_RESULT_ALICE, resultExchange.getIn().getBody().toString());
+        assertNotNull("result/getIn may not be null", resultExchange.getIn());
+        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
+        
+        Document employee = resultExchange.getIn().getBody(Document.class);
+        
+        assertEquals(TestResults.COMPLETE_RESULT_ALICE, TestUtils.getDocumentAsString(employee));
     }
 
     @Test
@@ -60,8 +65,12 @@ public class TestEve extends CamelSpringTestSupport {
         Exchange resultExchange = template.request("direct:EmpInfoService", processor);
 
         assertNotNull("result may not be null", resultExchange);
-
-        assertEquals(TestResults.COMPLETE_RESULT_BOB, resultExchange.getIn().getBody().toString());
+        assertNotNull("result/getIn may not be null", resultExchange.getIn());
+        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
+        
+        Document employee = resultExchange.getIn().getBody(Document.class);
+        
+        assertEquals(TestResults.COMPLETE_RESULT_BOB, TestUtils.getDocumentAsString(employee));
     }
 
     @Override

@@ -5,8 +5,8 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-
-import de.bit.camel.security.Employee;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 public class AccountingBean {
     private Logger logger = Logger.getLogger(AccountingBean.class);
@@ -15,29 +15,51 @@ public class AccountingBean {
     private static final String QUERY_SALARY_FOR_ID = "select salary from accounting where emp_emp_id = ?";
     private static final String QUERY_ALL_SALARIES = "select sum(salary) from accounting, employees where emp_id = emp_emp_id and man_id = ? ";
 
-    public Employee getSalaryForEmployee(Employee emp) {
-        logger.debug("getSalaryForEmployee for empId " + emp.getEmpId());
+    public Document getSalaryForEmployee(Document employee) {
+        int empId = getEmpId(employee);
+        
+        if (empId == -1) {
+            return employee;
+        }
 
         int salary = simpleJdbcTemplate
-                .queryForObject(QUERY_SALARY_FOR_ID, Integer.class, new Object[] {emp.getEmpId()});
+                .queryForObject(QUERY_SALARY_FOR_ID, Integer.class, new Object[] {empId});
 
-        logger.debug("getSalaryForEmployee returned " + salary);
+        logger.info("getSalaryForEmployee returned " + salary);
         
-        emp.setSalary(salary);
+        employee.getElementsByTagName("salary").item(0).setTextContent(String.valueOf(salary));
 
-        return emp;
+        return employee;
     }
 
-    public Employee getTotalSalaryForManager(Employee emp) {
-        logger.debug("getTotalSalaryForManager for empId " + emp.getEmpId());
+    public Document getTotalSalaryForManager(Document employee) {
+        int empId = getEmpId(employee);
+        
+        if (empId == -1) {
+            return employee;
+        }
 
-        int total = simpleJdbcTemplate.queryForInt(QUERY_ALL_SALARIES, new Object[] {emp.getEmpId()});
+        int total = simpleJdbcTemplate.queryForInt(QUERY_ALL_SALARIES, new Object[] {empId});
 
         logger.debug("getTotalSalaryForManager returned " + total);
         
-        emp.setTotal(total);
+        employee.getElementsByTagName("total").item(0).setTextContent(String.valueOf(total));
 
-        return emp;
+        return employee;
+    }
+
+    private int getEmpId(Document employee) {
+        NodeList empIds = employee.getDocumentElement().getElementsByTagName("empId");
+        
+        if (empIds.getLength() != 1) {
+            return -1;
+        }
+        
+        int empId = Integer.parseInt(empIds.item(0).getTextContent());
+        
+        logger.debug("using empId " + empId);
+        
+        return empId;
     }
 
     @Required

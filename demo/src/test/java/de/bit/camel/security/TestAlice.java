@@ -7,6 +7,7 @@ import org.apache.camel.test.junit4.CamelSpringTestSupport;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.w3c.dom.Document;
 
 public class TestAlice extends CamelSpringTestSupport {
     @Test
@@ -23,8 +24,12 @@ public class TestAlice extends CamelSpringTestSupport {
         Exchange resultExchange = template.request("direct:EmpInfoService", processor);
 
         assertNotNull("result may not be null", resultExchange);
+        assertNotNull("result/getIn may not be null", resultExchange.getIn());
+        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
         
-        assertEquals(TestResults.COMPLETE_RESULT_ALICE, resultExchange.getIn().getBody().toString());
+        Document employee = resultExchange.getIn().getBody(Document.class);
+        
+        assertEquals(TestResults.COMPLETE_RESULT_ALICE, TestUtils.getDocumentAsString(employee));
     }
 
     @Override

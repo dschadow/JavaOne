@@ -31,13 +31,9 @@
 					<choice>
 						<when>
 							<xpath>/employee/jobTitle = 'Manager'</xpath>
-							<unmarshal ref="simpleXML" />
-							
 							<to uri="direct:sac" />
 						</when>
 						<otherwise>
-							<unmarshal ref="simpleXML" />
-							
 							<to uri="direct:ac" />
 						</otherwise>
 					</choice>
