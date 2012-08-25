@@ -36,6 +36,7 @@ public class TestEve extends CamelSpringTestSupport {
             public void process(Exchange exchange) throws Exception {
                 exchange.getIn().setBody(10001);
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
+                exchange.getIn().setHeader("jobTitle", "Manager");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
         };
