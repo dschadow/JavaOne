@@ -38,6 +38,11 @@
             <artifactId>camel-cxf-transport</artifactId>
 			<version>${camel.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jaxb</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>

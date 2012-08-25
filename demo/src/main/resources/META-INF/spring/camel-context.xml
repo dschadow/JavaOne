@@ -8,6 +8,10 @@
 	<import resource="classpath:META-INF/spring/beans.xml" />
 
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<dataFormats>
+			<jaxb id="simpleXML" contextPath="de.bit.camel.security" />
+		</dataFormats>
+		
 		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
 		<route id="empInfoService">
 			<!-- <from uri="cxf:bean:EmpInfoService" /> -->
@@ -22,24 +26,17 @@
 				<when>
 					<simple>${in.header.operationName} == 'getEmployeeInformation'</simple>
 					<to uri="direct:hr" />
-					
-					<transform>
-						<method bean="converter" method="convertToXml" />
-					</transform>
+					<marshal ref="simpleXML" />
 
 					<choice>
 						<when>
 							<xpath>/employee/jobTitle = 'Manager'</xpath>
-							<transform>
-								<method bean="converter" method="convertToEmployee" />
-							</transform>
+							<unmarshal ref="simpleXML" />
 							
 							<to uri="direct:sac" />
 						</when>
 						<otherwise>
-							<transform>
-								<method bean="converter" method="convertToEmployee" />
-							</transform>
+							<unmarshal ref="simpleXML" />
 							
 							<to uri="direct:ac" />
 						</otherwise>
