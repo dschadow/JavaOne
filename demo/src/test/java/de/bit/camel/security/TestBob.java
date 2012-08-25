@@ -7,11 +7,11 @@ import org.apache.camel.test.junit4.CamelSpringTestSupport;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.w3c.dom.Document;
+import org.springframework.test.annotation.DirtiesContext;
 
-
-public class TestBob extends CamelSpringTestSupport {   
+public class TestBob extends CamelSpringTestSupport {
     @Test
+    @DirtiesContext
     public void testBob() throws Exception {
         Processor processor = new Processor() {
             @Override
@@ -22,15 +22,15 @@ public class TestBob extends CamelSpringTestSupport {
             }
         };
 
-        Exchange resultExchange = template.request("direct:EmpInfoService", processor);
+        Exchange resultExchange = template.request("cxf:bean:EmpInfoService", processor);
 
         assertNotNull("result may not be null", resultExchange);
-        assertNotNull("result/getIn may not be null", resultExchange.getIn());
-        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
-        
-        Document employee = resultExchange.getIn().getBody(Document.class);
-        
-        assertEquals(TestResults.COMPLETE_RESULT_BOB, TestUtils.getDocumentAsString(employee));
+        assertNotNull("result/getOut may not be null", resultExchange.getOut());
+        assertNotNull("result/getOut/getBody may not be null", resultExchange.getOut().getBody(Employee.class));
+
+        Employee employee = resultExchange.getOut().getBody(Employee.class);
+
+        assertEquals(TestResults.COMPLETE_RESULT_BOB, employee.toString());
     }
 
     @Override

@@ -1,17 +1,19 @@
 package de.bit.camel.security;
 
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.test.junit4.CamelSpringTestSupport;
+import org.apache.cxf.binding.soap.SoapFault;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.w3c.dom.Document;
+import org.springframework.test.annotation.DirtiesContext;
 
 public class TestEve extends CamelSpringTestSupport {
     @Test
+    @DirtiesContext
     public void testEve() throws Exception {
         Processor processor = new Processor() {
             @Override
@@ -21,57 +23,13 @@ public class TestEve extends CamelSpringTestSupport {
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
         };
-
-        Exchange resultExchange = template.request("direct:EmpInfoService", processor);
-
+    
+        Exchange resultExchange = template.request("cxf:bean:EmpInfoService", processor);
+    
         assertNotNull("result may not be null", resultExchange);
-
-        assertTrue(resultExchange.getException().getCause().getClass().equals(EmptyResultDataAccessException.class));
-    }
-
-    @Test
-    public void testAlice() throws Exception {
-        Processor processor = new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(10001);
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
-                exchange.getIn().setHeader("jobTitle", "Manager");
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
-            }
-        };
-
-        Exchange resultExchange = template.request("direct:EmpInfoService", processor);
-
-        assertNotNull("result may not be null", resultExchange);
-        assertNotNull("result/getIn may not be null", resultExchange.getIn());
-        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
+        assertNotNull("exception may not be null", resultExchange.getException());
         
-        Document employee = resultExchange.getIn().getBody(Document.class);
-        
-        assertEquals(TestResults.COMPLETE_RESULT_ALICE, TestUtils.getDocumentAsString(employee));
-    }
-
-    @Test
-    public void testBob() throws Exception {
-        Processor processor = new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(10002);
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
-            }
-        };
-
-        Exchange resultExchange = template.request("direct:EmpInfoService", processor);
-
-        assertNotNull("result may not be null", resultExchange);
-        assertNotNull("result/getIn may not be null", resultExchange.getIn());
-        assertNotNull("result/getIn/getBody may not be null", resultExchange.getIn().getBody(Document.class));
-        
-        Document employee = resultExchange.getIn().getBody(Document.class);
-        
-        assertEquals(TestResults.COMPLETE_RESULT_BOB, TestUtils.getDocumentAsString(employee));
+        assertTrue(resultExchange.getException().getClass().equals(SoapFault.class));
     }
 
     @Override

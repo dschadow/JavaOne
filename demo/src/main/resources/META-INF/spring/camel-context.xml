@@ -8,14 +8,9 @@
 	<import resource="classpath:META-INF/spring/beans.xml" />
 
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-		<dataFormats>
-			<jaxb id="simpleXML" contextPath="de.bit.camel.security" />
-		</dataFormats>
-		
 		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
 		<route id="empInfoService">
-			<!-- <from uri="cxf:bean:EmpInfoService" /> -->
-			<from uri="direct:EmpInfoService" />
+			<from uri="cxf:bean:EmpInfoService" />
 			<log message="empInfoEndpoint started with body ${body}" />
 			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
 
@@ -29,7 +24,7 @@
 					
 					<choice>
 						<when>
-							<simple>${header.jobTitle} == 'Manager'</simple>
+							<simple>${in.header.jobTitle} == 'Manager'</simple>
 							<to uri="direct:sac" />
 						</when>
 						<otherwise>
@@ -58,7 +53,6 @@
 			<from uri="direct:ac" />
 			<log message="ac started with body ${body}" />
 
-			<marshal ref="simpleXML" />
 			<bean ref="accounting" method="getSalaryForEmployee" />
 
 			<log message="ac finished with body ${body}" />
@@ -68,7 +62,6 @@
 			<from uri="direct:sac" />
 			<log message="sac started with body ${body}" />
 
-			<marshal ref="simpleXML" />
 			<bean ref="accounting" method="getSalaryForEmployee" />
 			<bean ref="accounting" method="getTotalSalaryForManager" />
 
