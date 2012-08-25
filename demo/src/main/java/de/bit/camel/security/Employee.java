@@ -1,8 +1,5 @@
 package de.bit.camel.security;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class Employee {
     private int empId;
     private String name;
@@ -59,7 +56,7 @@ public class Employee {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-    
+
     public int getTotal() {
         return total;
     }
@@ -78,7 +75,7 @@ public class Employee {
         emp.append("entryDate ").append(entryDate).append(", ");
         emp.append("salary ").append(salary).append(", ");
         emp.append("total ").append(total);
-        
+
         return emp.toString();
     }
 }
