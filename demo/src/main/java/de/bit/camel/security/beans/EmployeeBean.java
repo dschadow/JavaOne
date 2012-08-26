@@ -19,7 +19,7 @@ public class EmployeeBean {
     private SimpleJdbcTemplate simpleJdbcTemplate;
     private static final String QUERY_FOR_EMP = "select name, job_title, department, entry_date from employees where emp_id = ?";
 
-    public Employee getEmployeeData(final int empId) {
+    public Employee getEmployeeData(final String empId) {
         logger.debug("getEmployeeData for empId " + empId);
 
         try {

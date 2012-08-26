@@ -11,5 +11,5 @@ import de.bit.camel.security.Employee;
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public interface EmpInfoService {
     @WebResult(name = "employee")
-    Employee getEmployeeInformation(@WebParam(name = "empId") int empId);
+    Employee getEmployeeInformation(@WebParam(name = "empId") String empId);
 }

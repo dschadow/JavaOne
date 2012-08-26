@@ -14,8 +14,8 @@
 			<log message="empInfoEndpoint started with body ${body}" />
 			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
 
-			<!-- body always consists of an Integer employee ID only -->
-			<convertBodyTo type="java.lang.Integer" />
+			<!-- body always consists of a String employee ID only -->
+			<convertBodyTo type="String" />
 
 			<choice>
 				<when>

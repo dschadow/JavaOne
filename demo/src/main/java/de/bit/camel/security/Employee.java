@@ -1,7 +1,7 @@
 package de.bit.camel.security;
 
 public class Employee {
-    private int empId;
+    private String empId;
     private String name;
     private String jobTitle;
     private String department;
@@ -9,11 +9,11 @@ public class Employee {
     private int salary;
     private int total;
 
-    public int getEmpId() {
+    public String getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(String empId) {
         this.empId = empId;
     }
 
