@@ -1,6 +1,5 @@
 package de.bit.camel.security;
 
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
@@ -8,16 +7,14 @@ import org.apache.camel.test.junit4.CamelSpringTestSupport;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.annotation.DirtiesContext;
 
 public class TestEve extends CamelSpringTestSupport {
     @Test
-    @DirtiesContext
     public void testEve() throws Exception {
         Processor processor = new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(10001);
+                exchange.getIn().setBody("10001");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
@@ -30,7 +27,7 @@ public class TestEve extends CamelSpringTestSupport {
         assertNotNull("result/getOut/getBody may not be null", resultExchange.getOut().getBody(Employee.class));
 
         Employee employee = resultExchange.getOut().getBody(Employee.class);
-        
+
         assertEquals(TestResults.COMPLETE_RESULT_ALICE, employee.toString());
     }
 
