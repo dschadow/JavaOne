@@ -14,7 +14,7 @@ public class TestBob extends CamelSpringTestSupport {
         Processor processor = new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody("10002");
+                exchange.getIn().setBody(TestValues.EMP_ID_BOB);
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
                 exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
@@ -23,12 +23,12 @@ public class TestBob extends CamelSpringTestSupport {
         Exchange resultExchange = template.request("cxf:bean:EmpInfoService", processor);
 
         assertNotNull("result may not be null", resultExchange);
-        assertNotNull("result/getOut may not be null", resultExchange.getOut());
-        assertNotNull("result/getOut/getBody may not be null", resultExchange.getOut().getBody(Employee.class));
+        assertNotNull("out may not be null", resultExchange.getOut());
+        assertNotNull("body may not be null", resultExchange.getOut().getBody(Employee.class));
 
         Employee employee = resultExchange.getOut().getBody(Employee.class);
 
-        assertEquals(TestResults.COMPLETE_RESULT_BOB, employee.toString());
+        assertEquals(TestValues.COMPLETE_RESULT_BOB, employee.toString());
     }
 
     @Override
