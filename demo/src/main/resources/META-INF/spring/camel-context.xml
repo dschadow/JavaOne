@@ -12,7 +12,6 @@
 		<route id="empInfoService">
 			<from uri="cxf:bean:EmpInfoService" />
 			<log message="empInfoEndpoint started with body ${body}" />
-			<log message="empInfoEndpoint called with operation: ${in.header.operationName}" />
 
 			<!-- body always consists of a String employee ID only -->
 			<convertBodyTo type="String" />
