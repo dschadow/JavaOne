@@ -2,7 +2,6 @@ package de.bit.camel.security;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.test.junit4.CamelSpringTestSupport;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -15,8 +14,6 @@ public class TestBob extends CamelSpringTestSupport {
             @Override
             public void process(Exchange exchange) throws Exception {
                 exchange.getIn().setBody(TestValues.EMP_ID_BOB);
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAME, "getEmployeeInformation");
-                exchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, "http://services.bit.de/");
             }
         };
 
