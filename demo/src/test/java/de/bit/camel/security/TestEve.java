@@ -9,11 +9,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestEve extends CamelSpringTestSupport {
     @Test
-    public void testEve() throws Exception {
+    public void testBobAndAlice() throws Exception {
         Processor processor = new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(TestValues.EMP_ID_ALICE);
+                exchange.getIn().setBody(TestValues.EMP_ID_BOB);
             }
         };
 
@@ -24,6 +24,23 @@ public class TestEve extends CamelSpringTestSupport {
         assertNotNull("body may not be null", resultExchange.getOut().getBody(Employee.class));
 
         Employee employee = resultExchange.getOut().getBody(Employee.class);
+
+        assertEquals(TestValues.COMPLETE_RESULT_BOB, employee.toString());
+        
+        processor = new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getIn().setBody(TestValues.EMP_ID_ALICE);
+            }
+        };
+
+        resultExchange = template.request("cxf:bean:EmpInfoService", processor);
+
+        assertNotNull("result may not be null", resultExchange);
+        assertNotNull("out may not be null", resultExchange.getOut());
+        assertNotNull("body may not be null", resultExchange.getOut().getBody(Employee.class));
+
+        employee = resultExchange.getOut().getBody(Employee.class);
 
         assertEquals(TestValues.COMPLETE_RESULT_ALICE, employee.toString());
     }
