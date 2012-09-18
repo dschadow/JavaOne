@@ -8,7 +8,7 @@
 	<import resource="classpath:META-INF/spring/beans.xml" />
 
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
+		<!-- call this web service with an employee ID value 10001 (Alice, manager) or 10002 (Bob, employee) -->
 		<route id="empInfoService">
 			<from uri="cxf:bean:EmpInfoService" />
 			<log message="empInfoEndpoint started with body ${body}" />
