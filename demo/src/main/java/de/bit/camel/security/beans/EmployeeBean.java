@@ -20,8 +20,6 @@ public class EmployeeBean {
     private static final String QUERY_FOR_EMP = "select name, job_title, department, entry_date from employees where emp_id = ?";
 
     public Employee getEmployeeData(final String empId) {
-        logger.debug("getEmployeeData for empId " + empId);
-
         try {
             Employee emp = simpleJdbcTemplate.queryForObject(QUERY_FOR_EMP, new RowMapper<Employee>() {
                 @Override
@@ -38,7 +36,7 @@ public class EmployeeBean {
 
             }, new Object[] {empId});
 
-            logger.debug("getEmployeeData returned " + emp.toString());
+            logger.info("getEmployeeData for empId " + empId + " returned " + emp.toString());
 
             return emp;
         } catch (EmptyResultDataAccessException ex) {

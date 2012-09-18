@@ -16,12 +16,10 @@ public class AccountingBean {
     private static final String QUERY_ALL_SALARIES = "select sum(salary) from accounting, employees where emp_id = emp_emp_id and man_id = ? ";
 
     public Employee getSalaryForEmployee(Employee employee) {
-        logger.debug("getSalaryForEmployee for employee id " + employee.getEmpId());
-        
         int salary = simpleJdbcTemplate
                 .queryForObject(QUERY_SALARY_FOR_ID, Integer.class, new Object[] {employee.getEmpId()});
 
-        logger.info("getSalaryForEmployee returned " + salary);
+        logger.info("getSalaryForEmployee for employee id " + employee.getEmpId() + " returned " + salary);
         
         employee.setSalary(salary);
 
@@ -29,11 +27,9 @@ public class AccountingBean {
     }
 
     public Employee getTotalSalaryForManager(Employee employee) {
-        logger.debug("getTotalSalaryForManager for employee id " + employee.getEmpId());
-        
         int total = simpleJdbcTemplate.queryForInt(QUERY_ALL_SALARIES, new Object[] {employee.getEmpId()});
 
-        logger.info("getTotalSalaryForManager returned " + total);
+        logger.info("getTotalSalaryForManager for employee id " + employee.getEmpId() + " returned " + total);
         
         employee.setTotal(total);
 

@@ -11,7 +11,7 @@
 		<!-- call this web service with an employee ID value 10001 (manager), 10002 (employee) or 10003 -->
 		<route id="empInfoService">
 			<from uri="cxf:bean:EmpInfoService" />
-			<log message="empInfoEndpoint started with body ${body}" />
+			<log message="empInfoEndpoint started with ${body}" />
 
 			<!-- body always consists of a String employee ID only -->
 			<convertBodyTo type="String" />
