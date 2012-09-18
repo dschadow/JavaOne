@@ -36,7 +36,7 @@ public class EmployeeBean {
 
             }, new Object[] {empId});
 
-            logger.info("getEmployeeData for empId " + empId + " returned " + emp.toString());
+            logger.info("getEmployeeData for employee id " + empId + " returned " + emp.toString());
 
             return emp;
         } catch (EmptyResultDataAccessException ex) {
