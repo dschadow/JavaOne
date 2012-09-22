@@ -8,6 +8,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
@@ -40,4 +41,9 @@ public class TestAlice {
 
 		assertEquals(TestValues.COMPLETE_RESULT_ALICE, alice.toString());
 	}
+    
+    @BeforeClass
+    public static void setup() throws Exception {
+        Thread.sleep(5000);
+    }
 }
