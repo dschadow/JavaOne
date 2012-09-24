@@ -1,9 +1,9 @@
 package de.bit.camel.security;
 
 public interface TestValues {
-	String EMP_ID_ALICE = "10001";
+	Object EMP_ID_ALICE = "10001";
 	
-	String EMP_ID_BOB = "10002";
+	Object EMP_ID_BOB = "10002";
 	
     String COMPLETE_RESULT_ALICE = "empId 10001, name Alice, jobTitle Manager, department , entryDate 01.01.2008, salary 10000, total 8700";
 
