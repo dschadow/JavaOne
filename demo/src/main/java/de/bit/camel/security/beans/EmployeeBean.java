@@ -13,6 +13,10 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 import de.bit.camel.security.Employee;
 
+/**
+ * 
+ * @author Dominik Schadow
+ */
 public class EmployeeBean {
     private Logger logger = Logger.getLogger(EmployeeBean.class);
 

@@ -1,5 +1,9 @@
 package de.bit.camel.security;
 
+/**
+ * 
+ * @author Dominik Schadow
+ */
 public interface TestValues {
 	Object EMP_ID_ALICE = "10001";
 	

@@ -10,6 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * 
+ * @author Dominik Schadow
+ */
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:META-INF/spring/camel-context.xml")
 public class TestAlice {

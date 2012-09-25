@@ -1,5 +1,9 @@
 package de.bit.camel.security;
 
+/**
+ * 
+ * @author Dominik Schadow
+ */
 public class Employee {
     private String empId;
     private String name;
