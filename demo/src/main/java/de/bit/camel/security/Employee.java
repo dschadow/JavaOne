@@ -5,13 +5,13 @@ package de.bit.camel.security;
  * @author Dominik Schadow
  */
 public class Employee {
-    private String empId;
-    private String name;
-    private String jobTitle;
-    private String department;
-    private String entryDate;
-    private int salary;
-    private int total;
+    private String empId = "";
+    private String name = "";
+    private String jobTitle = "";
+    private String department = "";
+    private String entryDate = "";
+    private int salary = -1;
+    private int total = -1;
 
     public String getEmpId() {
         return empId;
@@ -79,7 +79,6 @@ public class Employee {
         emp.append("entryDate ").append(entryDate).append(", ");
         emp.append("salary ").append(salary).append(", ");
         emp.append("total ").append(total);
-
         return emp.toString();
     }
 }
