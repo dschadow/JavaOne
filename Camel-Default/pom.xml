@@ -7,9 +7,10 @@
 	<artifactId>Camel-Default</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
+    <description>This project contains the initial demo project without any security for payload and route.</description>
 
 	<name>Apache Camel Demo Project: Default</name>
-	<url>http://www.bridging-it.de</url>
+	<url>https://github.com/dschadow/JavaOne</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -101,7 +102,7 @@
 	</dependencies>
 
 	<build>
-		<defaultGoal>install</defaultGoal>
+        <defaultGoal>clean package</defaultGoal>
 
 		<plugins>
 			<plugin>
@@ -120,12 +121,6 @@
 				<artifactId>camel-maven-plugin</artifactId>
 				<version>${camel.version}</version>
 			</plugin>
-
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
-	<description>This project contains the initial demo project in the *master* branch. The payload security demo is located in the *payload* branch. Route security is split into two branches: Spring Security route security is located in the *route-spring-security* branch, Apache Shiro route security is located in the *route-apache-shiro* branch.</description>
 </project>
