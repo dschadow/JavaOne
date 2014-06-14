@@ -6,7 +6,7 @@ JavaOne Demo Projects
 ##CON3418 - Confident Data Transfers with Apache Camel Security
 
 ###Camel-Default
-This project contains the initial demo project without any security. 
+This project contains the initial demo project without any security for payload and route.
 
 ###Camel-Payload-Security
 The payload security version of the initial demo project.
