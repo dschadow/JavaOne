@@ -1,4 +1,4 @@
-JavaOne
+JavaOne Demo Projects
 =======
 
 ##2012
