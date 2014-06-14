@@ -4,7 +4,8 @@ This repository contains various demo projects from [JavaOne](https://www.oracle
 
 #2012
 ###Confident Data Transfers with Apache Camel Security (CON3418)
-Slides are avaible [here](http://files.dominikschadow.de/event_javaone2012.pdf) (PDF).
+Slides are available [here](http://files.dominikschadow.de/event_javaone2012.pdf) (PDF).
+
 ####Camel-Default
 This project contains the initial demo project without any security for payload and route.
 
