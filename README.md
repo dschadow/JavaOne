@@ -1,8 +1,22 @@
 JavaOne
 =======
 
-##Confident Data Transfers with Apache Camel Security
+##2012
 
-[JavaOne 2012](http://www.oracle.com/javaone) session [CON3418 - Confident Data Transfers with Apache Camel Security](https://oracleus.activeevents.com/connect/sessionDetail.ww?SESSION_ID=3418) demo project:
+###Confident Data Transfers with Apache Camel Security
 
-This project contains the initial demo project in the *master* branch. The payload security demo is located in the *payload* branch. Route security is split into two branches: Spring Security route security is located in the *route-spring-security* branch, Apache Shiro route security is located in the *route-apache-shiro* branch.
+[CON3418 - Confident Data Transfers with Apache Camel Security](https://oracleus.activeevents.com/connect/sessionDetail.ww?SESSION_ID=3418)
+
+*Camel-Default*
+This project contains the initial demo project without any security. 
+
+*Camel-Payload-Security*
+The payload security version of the initial demo project.
+
+*Camel-Route-Security-Apache-Shiro*
+The route security version of the initial demo project with Apache Shiro.
+
+*Camel-Route-Security-Spring-Security*
+The route security version of the initial demo project with Spring Security.
+
+##2014
