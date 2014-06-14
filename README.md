@@ -3,9 +3,7 @@ JavaOne
 
 ##2012
 
-###Confident Data Transfers with Apache Camel Security
-
-[CON3418 - Confident Data Transfers with Apache Camel Security](https://oracleus.activeevents.com/connect/sessionDetail.ww?SESSION_ID=3418)
+###CON3418 - Confident Data Transfers with Apache Camel Security
 
 *Camel-Default*
 This project contains the initial demo project without any security. 
