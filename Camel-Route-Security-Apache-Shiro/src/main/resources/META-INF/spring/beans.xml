@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<bean id="user" class="org.apache.camel.component.shiro.security.ShiroSecurityPolicy">
+		<constructor-arg value="classpath:shiro.ini" /> <!-- ini resource path -->
+		<constructor-arg value="CamelSecureRoute" /> <!-- passPhrase of the ShiroSecurityToken -->
+		<constructor-arg value="true" /> <!-- always reauthenticate -->
+		<constructor-arg> <!-- permissions -->
+			<util:list>
+                <bean class="org.apache.shiro.authz.permission.WildcardPermission">
+			        <constructor-arg value="getEmployeeData:*" />
+			    </bean>
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="employee" class="org.apache.camel.component.shiro.security.ShiroSecurityPolicy">
+		<constructor-arg value="classpath:shiro.ini" />
+		<constructor-arg value="CamelSecureRoute" />
+		<constructor-arg value="true" />
+		<constructor-arg>
+			<util:list>
+				<bean class="org.apache.shiro.authz.permission.WildcardPermission">
+			        <constructor-arg value="getAccountingData:own" />
+			    </bean>
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="manager" class="org.apache.camel.component.shiro.security.ShiroSecurityPolicy">
+		<constructor-arg value="classpath:shiro.ini" />
+		<constructor-arg value="CamelSecureRoute" />
+		<constructor-arg value="true" />
+		<constructor-arg>
+			<util:list>
+				<bean class="org.apache.shiro.authz.permission.WildcardPermission">
+			        <constructor-arg value="getAccountingData:any" />
+			    </bean>
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+    <bean id="tokenHelper" class="de.bit.camel.security.beans.TokenHelper" />
+	
+	<bean id="employees" class="de.bit.camel.security.beans.EmployeeBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="accounting" class="de.bit.camel.security.beans.AccountingBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<jdbc:embedded-database id="dataSource">
+		<jdbc:script location="classpath:schema.sql" />
+		<jdbc:script location="classpath:data.sql" />
+	</jdbc:embedded-database>
+</beans>

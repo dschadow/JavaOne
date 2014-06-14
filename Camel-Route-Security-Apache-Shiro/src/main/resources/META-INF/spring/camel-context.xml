@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<import resource="classpath:META-INF/spring/services.cxf.xml" />
+	<import resource="classpath:META-INF/spring/beans.xml" />
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <onException>
+            <exception>org.apache.shiro.authc.IncorrectCredentialsException</exception>
+            <exception>org.apache.shiro.authc.UnknownAccountException</exception>
+            <handled>
+                <constant>true</constant>
+            </handled>
+            <transform>
+                <simple>username and/or password not correct for ${body}</simple>
+            </transform>
+            <bean ref="employees" method="getEmptyEmployee" />
+        </onException>
+        <onException>
+            <exception>org.apache.camel.NoSuchHeaderException</exception>
+            <handled>
+                <constant>true</constant>
+            </handled>
+            <transform>
+                <simple>service requires authentication for ${body}</simple>
+            </transform>
+            <bean ref="employees" method="getEmptyEmployee" />
+        </onException>
+        <onException>
+            <exception>org.apache.camel.CamelAuthorizationException</exception>
+            <handled>
+                <constant>true</constant>
+            </handled>
+            <transform>
+                <constant>missing permissions to access route</constant>
+            </transform>
+            <bean ref="employees" method="getEmptyEmployee" />
+        </onException>
+		
+		<!-- call this endpoint with an employee ID value 10001 (Alice, manager) or 10002 (Bob, employee) -->
+		<route id="empInfoService">
+			<from uri="cxf:bean:EmpInfoService" />
+			<log message="empInfoEndpoint started with body ${body}" />
+
+            <bean ref="tokenHelper" />
+
+			<policy ref="user">
+				<!-- body always consists of a String employee ID only -->
+				<convertBodyTo type="String" />
+	
+				<to uri="direct:hr" />
+				
+				<choice>
+					<when>
+						<method bean="employees" method="isManager" />
+						<to uri="direct:sac" />
+					</when>
+					<otherwise>
+						<to uri="direct:ac" />
+					</otherwise>
+				</choice>
+			</policy>
+		</route>
+
+		<route id="hr">
+			<from uri="direct:hr" />
+			
+            <policy ref="user">
+				<bean ref="employees" method="getEmployeeData" />
+	
+				<log message="hr finished with body ${body}" />
+			</policy>
+		</route>
+
+		<route id="ac">
+			<from uri="direct:ac" />
+			
+            <policy ref="employee">
+				<bean ref="accounting" method="getSalaryForEmployee" />
+	
+				<log message="ac finished with body ${body}" />
+            </policy>
+		</route>
+
+		<route id="sac">
+			<from uri="direct:sac" />
+	
+            <policy ref="manager">
+				<bean ref="accounting" method="getSalaryForEmployee" />
+				<bean ref="accounting" method="getTotalSalaryForManager" />
+	
+				<log message="sac finished with body ${body}" />
+			</policy>
+		</route>
+	</camelContext>
+</beans>
