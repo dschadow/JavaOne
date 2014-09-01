@@ -22,4 +22,7 @@ The route security version of the initial demo project with Spring Security.
 
 ##Security starts in the head(er) (CON2371)
 
+###security-header
+This project requires a web container like Apache Tomcat (included via Maven Tomcat Plug-in). The web application sets different security related response headers via filter classes to each response. After launching, open the web application in your browser at *http://localhost:8080/security-header* or *https://localhost:8443/security-header*.
+
 ##Getting started with secure web application development (CON2369)
