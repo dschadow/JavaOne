@@ -8,7 +8,7 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>Java Security Header</name>
-    <url>https://github.com/dschadow/JavaSecurity</url>
+    <url>https://github.com/dschadow/JavaOne</url>
     <description>Security Response Header sample project. Sets different security related response headers via filter classes
         to each response. After launching, open the web application in your browser at http://localhost:8080/security-header or
         https://localhost:8443/security-header
