@@ -6,20 +6,22 @@
     <title>Cache-Control: Unprotected</title>
 </head>
 <body>
-<form name="loginForm" action="LoginServlet" method="post">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username"/>
-    </div>
+    <h1>Cache-Control: Unprotected</h1>
 
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password"/>
-    </div>
+    <form name="loginForm" action="LoginServlet" method="post">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username"/>
+        </div>
 
-    <div>
-        <input type="submit" value="Send"/>
-    </div>
-</form>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password"/>
+        </div>
+
+        <div>
+            <input type="submit" value="Send"/>
+        </div>
+    </form>
 </body>
 </html>
