@@ -24,20 +24,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * This servlet filter protects the complete page by forcing HTTPS usage.
+ * This servlet filter protects the {@code protectedForm.jsp} against being cached by the user agent.
+ * The {@code urlPatterns} should be far more wildcard in a real web application than in this demo project.
  *
  * @author Dominik Schadow
  */
-@WebFilter(filterName = "HSTSFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "CacheControlFilter", urlPatterns = {"/forms/protectedForm.jsp"})
 public class CacheControlFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("Strict-Transport-Security header added to response");
+        logger.info("Cache-Control header added to response");
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.addHeader("Strict-Transport-Security", "max-age=31556926; includeSubDomains");
+        response.addHeader("Cache-Control", "no-store, no-cache, max-age=0, must-revalidate");
 
         filterChain.doFilter(servletRequest, response);
     }
