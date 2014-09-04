@@ -17,16 +17,22 @@
         <a href="forms/unprotectedForm.jsp">Unprotected form</a><br>
     </p>
 
-    <h2>X-Frame-Options</h2>
-    <p>
-        <a href="x-frame-options/unprotected.jsp">Unprotected</a><br/>
-        <a href="x-frame-options/protected.jsp">Protected</a>
-    </p>
-
     <h2>X-Content-Type-Options</h2>
     <p>
         <a href="x-content-type-options/unprotected.txt">Unprotected</a><br>
         <a href="x-content-type-options/protected.txt">Protected</a>
+    </p>
+
+    <h2>Cache-Control</h2>
+    <p>
+        <a href="cache-control/unprotected.jsp">Unprotected</a><br/>
+        <a href="cache-control/protected.jsp">Protected</a>
+    </p>
+
+    <h2>X-Frame-Options</h2>
+    <p>
+        <a href="x-frame-options/unprotected.jsp">Unprotected</a><br/>
+        <a href="x-frame-options/protected.jsp">Protected</a>
     </p>
 
     <h2>Content Security Policy</h2>

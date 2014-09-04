@@ -29,7 +29,7 @@ import java.io.IOException;
  *
  * @author Dominik Schadow
  */
-@WebFilter(filterName = "CacheControlFilter", urlPatterns = {"/forms/protectedForm.jsp"})
+@WebFilter(filterName = "CacheControlFilter", urlPatterns = {"/cache-control/protected.jsp"})
 public class CacheControlFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
