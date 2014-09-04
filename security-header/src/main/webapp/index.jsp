@@ -41,5 +41,11 @@
         <a href="csp/protected.jsp?name=<script>alert('XSS')</script>">Protected</a><br>
         <a href="csp/reporting.jsp?name=<script>alert('XSS')</script>">Report only</a>
     </p>
+
+    <h2>X-XSS-Protection</h2>
+    <p>
+        <a href="x-xss-protection/unprotected.jsp?name=<script>alert('XSS')</script>">Unprotected</a><br>
+        <a href="x-xss-protection/protected.jsp?name=<script>alert('XSS')</script>">Protected</a>
+    </p>
 </body>
 </html>
