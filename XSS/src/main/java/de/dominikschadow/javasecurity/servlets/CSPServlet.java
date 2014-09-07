@@ -1,8 +1,6 @@
 /*
  * Copyright (C) 2014 Dominik Schadow, dominikschadow@gmail.com
  *
- * This file is part of the Java Security project.
- * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,7 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+/**
+ * Servlet to return a simple Content Security Policy (CSP) header to prevent Cross-Site Scripting (XSS).
+ *
+ * @author Dominik Schadow
+ */
 @WebServlet(name = "CSPServlet", urlPatterns = {"/csp"})
 public class CSPServlet extends HttpServlet {
     private Logger logger = LoggerFactory.getLogger(getClass());
