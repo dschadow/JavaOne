@@ -9,9 +9,10 @@
     <packaging>war</packaging>
     <name>Cross-Site Scripting</name>
     <url>https://github.com/dschadow/JavaOne</url>
-    <description>Demo project for Cross-Site Scripting (XSS) vulnerabilities. This web application is based on JavaServer Pages (JSP)
-        and utilizes OWASP Java Encoder (output escaping), input validation and the Content Security Policy (CSP) to prevent
-        XSS. After launching the Tomcat Maven Plug-in, open the web application in your browser at http://localhost:8080/xss
+    <description>Demo project for Cross-Site Scripting (XSS) vulnerabilities and mitigation. This web application is
+        based on JavaServer Pages (JSP) and utilizes OWASP Java Encoder (output escaping), input validation and the
+        Content Security Policy (CSP) to prevent XSS. After launching the Tomcat Maven Plug-in, open the web application
+        in your browser at http://localhost:8080/xss
     </description>
 
     <properties>
@@ -48,11 +49,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.keyczar</groupId>
-            <artifactId>keyczar</artifactId>
-            <version>0.71g</version>
         </dependency>
     </dependencies>
 
