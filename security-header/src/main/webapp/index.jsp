@@ -10,12 +10,8 @@
 	<h1>Java Security Header</h1>
 
     <p>Each response header can be called in an unprotected and in a protected version. Every header is added by a
-    filter. There are no special pages for HSTS since this header is only active or inactive for the whole domain.</p>
-
-    <p>
-        <a href="forms/protectedForm.jsp">Protected form</a><br>
-        <a href="forms/unprotectedForm.jsp">Unprotected form</a><br>
-    </p>
+    filter. There are no special pages for HSTS since this header is only active or inactive for the whole domain.<br/>
+    Content Security Policy and especially Content Security Policy Level 2 may not work in your browser yet.</p>
 
     <h2>X-Content-Type-Options</h2>
     <p>
@@ -40,6 +36,12 @@
         <a href="csp/unprotected.jsp?name=<script>alert('XSS')</script>">Unprotected</a><br>
         <a href="csp/protected.jsp?name=<script>alert('XSS')</script>">Protected</a><br>
         <a href="csp/reporting.jsp?name=<script>alert('XSS')</script>">Report only</a>
+    </p>
+
+    <h2>Content Security Policy Level 2 (frame-ancestors)</h2>
+    <p>
+        <a href="csp2/unprotected.jsp">Unprotected</a><br/>
+        <a href="csp2/protected.jsp">Protected</a>
     </p>
 
     <h2>X-XSS-Protection</h2>
