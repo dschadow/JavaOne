@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +10,7 @@
 
     <p></p>
 
-    <form action="unprotected" method="post">
+    <form action="unprotected" id="unprotectedForm" method="post">
         <fieldset>
             <legend>Unprotected</legend>
             <label for="unprotectedName">Name</label>
@@ -20,16 +19,16 @@
         </fieldset>
     </form>
 
-    <form action="validated" method="post">
+    <form action="validated" id="validatedForm" method="post">
         <fieldset>
             <legend>+ Input Validation</legend>
             <label for="inputValidatedName">Name</label>
-            <input type="text" id="inputValidatedName" name="inputValidatedName" />
+            <input type="text" id="inputValidatedName" name="inputValidatedName" pattern="^[^<>]+$" />
             <input type="submit" value=" Send" />
         </fieldset>
     </form>
 
-    <form action="escaped" method="post">
+    <form action="escaped" id="escapedForm" method="post">
         <fieldset>
             <legend>+ Output Escaping</legend>
             <label for="outputEscapedName">Name</label>
@@ -38,7 +37,7 @@
         </fieldset>
     </form>
 
-    <form action="csp" method="post">
+    <form action="csp" id="cspForm" method="post">
         <fieldset>
             <legend>+ Content Security Policy (CSP)</legend>
             <label for="cspName">Name</label>
