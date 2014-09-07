@@ -35,6 +35,15 @@
         </fieldset>
     </form>
 
+    <form action="escaped.jsp" id="escapedJSPForm" method="post">
+        <fieldset>
+            <legend>+ JSP Output Escaping</legend>
+            <label for="outputEscapedJSPName">Name</label>
+            <input type="text" id="outputEscapedJSPName" name="outputEscapedJSPName" />
+            <input type="submit" value=" Send" />
+        </fieldset>
+    </form>
+
     <form action="csp" id="cspForm" method="post">
         <fieldset>
             <legend>+ Content Security Policy (CSP)</legend>
