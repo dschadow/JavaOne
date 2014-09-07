@@ -9,45 +9,16 @@
     <packaging>war</packaging>
     <name>Cross-Site Scripting</name>
     <url>https://github.com/dschadow/JavaOne</url>
-    <description>Demo project for Cross-Site Scripting (XSS) vulnerabilities. This web application is based on Spring and JSP
+    <description>Demo project for Cross-Site Scripting (XSS) vulnerabilities. This web application is based on JavaServer Pages (JSP)
         and utilizes OWASP Java Encoder (output escaping), input validation and the Content Security Policy (CSP) to prevent
-        XSS. Critical Spring configuration is secured by Jasypt, sensitive data with KeyCzar. After launching the Tomcat
-        Maven Plug-in, open the web application in your browser at http://localhost:8080/xss
+        XSS. After launching the Tomcat Maven Plug-in, open the web application in your browser at http://localhost:8080/xss
     </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.0.7.RELEASE</spring.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -59,24 +30,6 @@
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
             <version>1.1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt-spring31</artifactId>
-            <version>1.9.2</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.3.2</version>
         </dependency>
 
         <dependency>
@@ -100,11 +53,6 @@
             <groupId>org.keyczar</groupId>
             <artifactId>keyczar</artifactId>
             <version>0.71g</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.3</version>
         </dependency>
     </dependencies>
 
