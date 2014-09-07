@@ -8,8 +8,6 @@
 <body>
 	<h1>Cross-Site Scripting (XSS)</h1>
 
-    <p></p>
-
     <form action="unprotected" id="unprotectedForm" method="post">
         <fieldset>
             <legend>Unprotected</legend>
