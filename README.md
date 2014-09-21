@@ -20,9 +20,10 @@ The route security version of the initial demo project with Spring Security.
 
 #2014
 ###7 security tools and libraries every developer should know (CON2585)
-You'll find the sources used in this session in the [JavaSecurity](https://github.com/dschadow/JavaSecurity) repository. The corresponding projects are **crypto-keyczar**, **crypto-spring** and **XSS**.
+You'll find the sources used in this session in the [JavaSecurity](https://github.com/dschadow/JavaSecurity) repository. The corresponding projects are **crypto-keyczar**, **crypto-spring**, **security-header** and **XSS**.
 
 ###Security starts in the head(er) (CON2371)
 You'll find the sources used in this session in the [JavaSecurity](https://github.com/dschadow/JavaSecurity) repository. The corresponding project is **security-header**.
 
 ###Getting started with secure web application development (CON2369)
+You'll find the sources used in this session in the [JavaSecurity](https://github.com/dschadow/JavaSecurity) repository. The corresponding projects are **CSRF** and **XSS**.
